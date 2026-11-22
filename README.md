@@ -7,7 +7,8 @@ pengembangan lokal.
 
 ## Status proyek
 
-Tahap 1–8 selesai dan diuji di lingkungan lokal. Mobility, Food, dan data
+Tahap backend 1–8 selesai dan diuji di lingkungan lokal. Frontend web Meal
+Planner React + TypeScript kini tersedia. Mobility, Food, dan data
 perjalanan/waktu tunggunya masih sample/mock, bukan data operasional
 terverifikasi. User Service hanya memvalidasi format request; penyimpanan akun,
 registrasi aktif, dan autentikasi belum tersedia. Docker Compose dan gateway
@@ -59,6 +60,9 @@ user-service/
   tests/               # health, validasi, dan batasan auth
   requirements.txt
   Dockerfile
+frontend/
+  src/                 # React UI, API client, types, form tests
+  README.md            # setup dan checks frontend
 nginx/
   nginx.conf
 docs/
@@ -202,6 +206,22 @@ prefix gateway sebelum meneruskan path. Port internal service tidak
 dipublikasikan. Setiap container memiliki health check, restart policy, dan
 batas awal CPU/memori yang dapat disesuaikan di [docker-compose.yml](docker-compose.yml).
 Gunakan `docker compose down` untuk menghentikan stack lokal.
+
+## Frontend web
+
+Frontend React + TypeScript memakai Vite dan API Gateway lokal. Jalankan
+backend terlebih dahulu, lalu dari root repository:
+
+```powershell
+Set-Location frontend
+npm ci
+npm run dev
+```
+
+Vite mem-proxy request `/api` ke `http://localhost:8080`; pengaturan lain dan
+perintah lint/test/build tersedia di [frontend/README.md](frontend/README.md).
+Rekomendasi hanya dihitung backend dari data sample/mock. Login, pemesanan, dan
+data restoran real-time belum tersedia.
 
 ## Environment dan keamanan
 
